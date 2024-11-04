@@ -5,6 +5,7 @@ from dynaconf import Dynaconf
 SETTINGS_FILES = [
     "test_generation_prompt.toml",
     "language_extensions.toml",
+    "configuration.toml",
     "analyze_suite_test_headers_indentation.toml",
     "analyze_suite_test_insert_line.toml",
     "analyze_test_run_failure.toml",
