@@ -6,7 +6,6 @@ import wandb
 
 from cover_agent.settings.config_loader import get_settings
 from cover_agent.CustomLogger import CustomLogger
-from cover_agent.ReportGenerator import ReportGenerator
 from cover_agent.UnitTestGenerator import UnitTestGenerator
 from cover_agent.UnitTestDB import UnitTestDB
 
