@@ -4,41 +4,40 @@ import shutil
 import sys
 import wandb
 
+from cover_agent.settings.config_loader import get_settings
 from cover_agent.CustomLogger import CustomLogger
 from cover_agent.ReportGenerator import ReportGenerator
 from cover_agent.UnitTestGenerator import UnitTestGenerator
 from cover_agent.UnitTestDB import UnitTestDB
 
-class CoverAgent:
-    def __init__(self, args):
-        """
-        Initialize the CoverAgent class with the provided arguments and run the test generation process.
 
-        Parameters:
-            args (Namespace): The parsed command-line arguments containing necessary information for test generation.
+class CoverAgent:
+    def __init__(self):
+        """
+        Initialize the CoverAgent class with the provided configuration and run the test generation process.
 
         Returns:
             None
         """
-        self.args = args
+        self.args = get_settings().config
         self.logger = CustomLogger.get_logger(__name__)
 
         self._validate_paths()
         self._duplicate_test_file()
 
         self.test_gen = UnitTestGenerator(
-            source_file_path=args.source_file_path,
-            test_file_path=args.test_file_output_path,
-            code_coverage_report_path=args.code_coverage_report_path,
-            test_command=args.test_command,
-            test_command_dir=args.test_command_dir,
-            included_files=args.included_files,
-            coverage_type=args.coverage_type,
-            desired_coverage=args.desired_coverage,
-            additional_instructions=args.additional_instructions,
-            llm_model=args.model,
-            api_base=args.api_base,
-            use_report_coverage_feature_flag=args.use_report_coverage_feature_flag,
+            source_file_path=self.args.source_file_path,
+            test_file_path=self.args.test_file_output_path,
+            code_coverage_report_path=self.args.code_coverage_report_path,
+            test_command=self.args.test_command,
+            test_command_dir=self.args.test_command_dir,
+            included_files=self.args.included_files,
+            coverage_type=self.args.coverage_type,
+            desired_coverage=self.args.desired_coverage,
+            additional_instructions=self.args.additional_instructions,
+            llm_model=self.args.model,
+            api_base=self.args.api_base,
+            use_report_coverage_feature_flag=self.args.use_report_coverage_feature_flag,
         )
 
     def _validate_paths(self):
